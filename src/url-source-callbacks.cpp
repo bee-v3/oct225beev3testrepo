@@ -60,23 +60,36 @@ void setTextCallback(const std::string &str, const output_mapping &mapping)
 	if (mapping.unhide_output_source) {
 		// unhide the output source
 		obs_source_set_enabled(target, true);
-		static bool getTotalSceneItemCountHelper(obs_scene_t *, obs_sceneitem_t *item,
-					 void *ptr)
 		obs_enum_scenes(
 			[](void *target_ptr, obs_source_t *scene_source) -> bool {
 				obs_scene_t *scene = obs_scene_from_source(scene_source);
 				if (scene == nullptr) {
 					return true;
 				}
-				
-				obs_scene_enum_items(scene, getTotalSceneItemCountHelper, (obs_source_t *)target_ptr);
-				if (getTotalSceneItemCountHelper) {
-					return true;
-				}
+				obs_source_t *target = (obs_source_t *)target_ptr;
+      			bool found = false;
 
-				
-				obs_sceneitem_set_visible(scene_item, true);
-				return false; // stop enumerating
+				obs_scene_enum_items(scene,
+					[](obs_scene_t *scene, obs_sceneitem_t *item, void *param) -> bool {
+						struct CallbackData {
+							obs_source_t *target;
+							bool *found;
+						};
+						CallbackData *data = (CallbackData *)param;
+
+						if (obs_sceneitem_get_source(item) == data->target) {
+							obs_sceneitem_set_visible(item, true);
+							*(data->found) = true;
+							return false; // stop enumerating
+						}
+						return true; // continue enumerating
+					},
+					&struct {
+						obs_source_t *target;
+						bool *found;
+					}{target, &found}
+				);
+				return false;
 			},
 			target);
 	}
