@@ -67,14 +67,16 @@ void setTextCallback(const std::string &str, const output_mapping &mapping)
 					return true;
 				}
 				obs_source_t *target = (obs_source_t *)target_ptr;
-      			bool found = false;
+				bool found = false;
+				
+				struct CallbackData {
+					obs_source_t *target;
+					bool *found;
+				} data{target, &found};
 
+				// Enumerate all items in the scene
 				obs_scene_enum_items(scene,
 					[](obs_scene_t *scene, obs_sceneitem_t *item, void *param) -> bool {
-						struct CallbackData {
-							obs_source_t *target;
-							bool *found;
-						};
 						CallbackData *data = (CallbackData *)param;
 
 						if (obs_sceneitem_get_source(item) == data->target) {
@@ -84,12 +86,10 @@ void setTextCallback(const std::string &str, const output_mapping &mapping)
 						}
 						return true; // continue enumerating
 					},
-					&struct {
-						obs_source_t *target;
-						bool *found;
-					}{target, &found}
+					&data
 				);
-				return false;
+
+				return !found; // continue enumerating scenes if not found
 			},
 			target);
 	}
