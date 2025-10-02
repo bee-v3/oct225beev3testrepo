@@ -10,6 +10,11 @@
 #include "ui/text-render-helper.h"
 #include <obs-frontend-api.h>
 
+struct CallbackData {
+            obs_source_t *target;
+            bool *found;
+        };
+		
 void acquire_output_source_ref_by_name(const char *output_source_name, obs_source_t **output_source)
 {
 	if (!is_valid_output_source_name(output_source_name)) {
@@ -68,11 +73,11 @@ void setTextCallback(const std::string &str, const output_mapping &mapping)
 				}
 				obs_source_t *target = (obs_source_t *)target_ptr;
 				bool found = false;
-				
-				struct CallbackData {
-					obs_source_t *target;
-					bool *found;
-				} data{target, &found};
+
+				// Enumerate all items in the scene
+				CallbackData data;
+				data.target = target;
+				data.found = &found;
 
 				// Enumerate all items in the scene
 				obs_scene_enum_items(scene,
@@ -82,7 +87,7 @@ void setTextCallback(const std::string &str, const output_mapping &mapping)
 						if (obs_sceneitem_get_source(item) == data->target) {
 							obs_sceneitem_set_visible(item, true);
 							*(data->found) = true;
-							return false; // stop enumerating
+							return false; // stop enumerating items
 						}
 						return true; // continue enumerating
 					},
@@ -91,7 +96,8 @@ void setTextCallback(const std::string &str, const output_mapping &mapping)
 
 				return !found; // continue enumerating scenes if not found
 			},
-			target);
+			target
+		);
 	}
 	obs_data_release(target_settings);
 	obs_source_release(target);
