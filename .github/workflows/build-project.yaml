@@ -83,7 +83,10 @@ jobs:
         with:
           submodules: recursive
           fetch-depth: 0
-
+      
+      - name: Make scripts executable
+        run: chmod +x .github/scripts/*.sh .github/actions/*.sh .github/workflows/*.sh
+        
       - name: Set Up Environment 🔧
         id: setup
         run: |
@@ -190,7 +193,10 @@ jobs:
         with:
           submodules: recursive
           fetch-depth: 0
-
+      
+      - name: Make scripts executable
+        run: chmod +x .github/scripts/*.sh .github/actions/*.sh .github/workflows/*.sh
+        
       - name: Set Up Environment 🔧
         id: setup
         run: |
