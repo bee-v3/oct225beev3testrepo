@@ -60,17 +60,21 @@ void setTextCallback(const std::string &str, const output_mapping &mapping)
 	if (mapping.unhide_output_source) {
 		// unhide the output source
 		obs_source_set_enabled(target, true);
+		static bool getTotalSceneItemCountHelper(obs_scene_t *, obs_sceneitem_t *item,
+					 void *ptr)
 		obs_enum_scenes(
 			[](void *target_ptr, obs_source_t *scene_source) -> bool {
 				obs_scene_t *scene = obs_scene_from_source(scene_source);
 				if (scene == nullptr) {
 					return true;
 				}
-				obs_sceneitem_t *scene_item = obs_scene_sceneitem_from_source(
-					scene, (obs_source_t *)target_ptr);
-				if (scene_item == nullptr) {
+				
+				obs_scene_enum_items(scene, getTotalSceneItemCountHelper, (obs_source_t *)target_ptr);
+				if (getTotalSceneItemCountHelper) {
 					return true;
 				}
+
+				
 				obs_sceneitem_set_visible(scene_item, true);
 				return false; // stop enumerating
 			},
