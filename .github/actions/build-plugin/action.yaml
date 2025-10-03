@@ -39,7 +39,7 @@ runs:
         if [[ '${{ inputs.codesign }}' == 'true' ]] build_args+=(--codesign)
         chmod -R +x .github/scripts/
         cd .github/scripts/
-        build-macos ${build_args}
+        ./build-macos ${build_args}
 
     - name: Install Dependencies 🛍️
       if: runner.os == 'Linux'
@@ -66,7 +66,7 @@ runs:
         if (( ${+RUNNER_DEBUG} )) build_args+=(--debug)
         chmod -R +x .github/scripts/
         cd .github/scripts/
-        build-linux ${build_args}
+        ./build-linux ${build_args}
 
     - name: Run Windows Build
       if: runner.os == 'Windows'
