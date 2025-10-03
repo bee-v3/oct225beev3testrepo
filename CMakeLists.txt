@@ -34,13 +34,9 @@ if(ENABLE_QT)
   )
 endif()
 
-set(USE_SYSTEM_CURL
-    OFF
-    CACHE STRING "Use system cURL")
+set(USE_SYSTEM_CURL OFF CACHE STRING "Use system cURL")
 
-set(USE_SYSTEM_PUGIXML
-    OFF
-    CACHE STRING "Use system pugixml")
+set(USE_SYSTEM_PUGIXML OFF CACHE STRING "Use system pugixml")
 
 if(USE_SYSTEM_CURL)
     find_package(CURL REQUIRED)
@@ -51,9 +47,7 @@ else()
     target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE libcurl)
 endif()
 
-set(USE_SYSTEM_PUGIXML
-    OFF
-    CACHE STRING "Use system pugixml")
+set(USE_SYSTEM_PUGIXML OFF CACHE STRING "Use system pugixml")
 
 if(USE_SYSTEM_PUGIXML)
   find_package(pugixml REQUIRED)
