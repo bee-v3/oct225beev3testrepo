@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.28...3.30)
 
+message(STATUS "CMAKE_BUILD_TYPE = ${CMAKE_BUILD_TYPE}")
+message(STATUS "Multi-config generator detected: CMAKE_CONFIGURATION_TYPES = ${CMAKE_CONFIGURATION_TYPES}")
+
 include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/common/bootstrap.cmake" NO_POLICY_SCOPE)
 
 project(${_name} VERSION ${_version})
