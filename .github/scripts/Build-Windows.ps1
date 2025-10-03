@@ -70,7 +70,7 @@ function Build {
         }
 
         $Preset = "windows-$(if ( $Env:CI -ne $null ) { 'ci-' })${Target}"
-        
+
         $CmakeArgs += @(
             '--preset', $Preset
         )

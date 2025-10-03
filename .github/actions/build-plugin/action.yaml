@@ -32,12 +32,12 @@ runs:
         CODESIGN_TEAM: ${{ inputs.codesignTeam }}
       run: |
         : Run macOS Build
-        
+
         local -a build_args=(--config ${{ inputs.config }})
         if (( ${+RUNNER_DEBUG} )) build_args+=(--debug)
 
         if [[ '${{ inputs.codesign }}' == 'true' ]] build_args+=(--codesign)
-        chmod -R +x .github/scripts/
+
         .github/scripts/build-macos ${build_args}
 
     - name: Install Dependencies 🛍️
@@ -57,13 +57,13 @@ runs:
       working-directory: ${{ inputs.workingDirectory }}
       run: |
         : Run Ubuntu Build
-        
+
         local -a build_args=(
           --target linux-${{ inputs.target }}
           --config ${{ inputs.config }}
         )
         if (( ${+RUNNER_DEBUG} )) build_args+=(--debug)
-        chmod -R +x .github/scripts/
+
         .github/scripts/build-linux ${build_args}
 
     - name: Run Windows Build
