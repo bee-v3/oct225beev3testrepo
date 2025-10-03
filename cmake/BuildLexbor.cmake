@@ -28,7 +28,7 @@ ExternalProject_Add(
              -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
              -DCMAKE_LINKER=${CMAKE_LINKER}
              -DCMAKE_INSTALL_MESSAGE=NEVER
-	     -DCMAKE_POLICY_VERSION_MINIMUM=3.6
+             -DCMAKE_POLICY_VERSION_MINIMUM=3.6
              ${LEXBOR_CMAKE_PLATFORM_OPTIONS})
 
 ExternalProject_Get_Property(lexbor_build INSTALL_DIR)

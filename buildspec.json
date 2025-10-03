@@ -33,13 +33,17 @@
     },
     "platformConfig": {
         "macos": {
-            "bundleId": "com.example.plugintemplate-for-obs"
+            "bundleId": "com.royshilkrot.obs-urlsource"
         }
     },
-    "name": "plugintemplate-for-obs",
-    "displayName": "Plugin Template for OBS",
-    "version": "1.0.0",
-    "author": "Your Name Here",
-    "website": "https://example.com",
-    "email": "me@example.com"
+    "name": "obs-urlsource",
+    "version": "0.3.8",
+    "author": "Roy Shilkrot",
+    "website": "https://github.com/locaal-ai/obs-urlsource",
+    "email": "roy.shil@gmail.com",
+    "uuids": {
+        "macosPackage": "0FFFBEF3-66A8-4288-8FFA-25818CE61EF1",
+        "macosInstaller": "3C8A34E0-7C19-4946-AFFF-83D84115248E",
+        "windowsApp": "74E06013-585F-4434-B7C8-547ED52E45CB"
+    }
 }

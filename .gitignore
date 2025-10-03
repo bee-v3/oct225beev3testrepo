@@ -6,10 +6,10 @@
 !/build-aux
 !/cmake
 !/data
-!/vendor
 !/src
+!/vendor
 !.clang-format
-!.gersemirc
+!.cmake-format.json
 !.gitignore
 !buildspec.json
 !CMakeLists.txt

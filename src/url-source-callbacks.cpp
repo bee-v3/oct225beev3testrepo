@@ -87,9 +87,9 @@ void setTextCallback(const std::string &str, const output_mapping &mapping)
 						if (obs_sceneitem_get_source(item) == data->target) {
 							obs_sceneitem_set_visible(item, true);
 							*(data->found) = true;
-							return false; // stop enumerating items
+							return false;
 						}
-						return true; // continue enumerating
+						return true;
 					},
 					&data
 				);

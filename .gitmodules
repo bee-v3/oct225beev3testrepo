@@ -1,6 +1,6 @@
-[submodule "vendor/inja"]
-	path = vendor/inja
-	url = https://github.com/pantor/inja.git
 [submodule "vendor/jsoncons"]
 	path = vendor/jsoncons
 	url = https://github.com/danielaparker/jsoncons.git
+[submodule "vendor/inja"]
+	path = vendor/inja
+	url = https://github.com/pantor/inja
