@@ -1,2 +1,1 @@
-DIR="$(cd "$(dirname "$0")" && pwd)"
-"$DIR/.build.zsh" "$@"
+.build.zsh
