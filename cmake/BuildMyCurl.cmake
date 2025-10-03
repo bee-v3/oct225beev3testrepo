@@ -1,9 +1,5 @@
 include(FetchContent)
 
-message(STATUS "libcurl_fetch_SOURCE_DIR = ${libcurl_fetch_SOURCE_DIR}")
-message(STATUS "libcurl_fetch_lib_location = ${libcurl_fetch_lib_location}")
-message(STATUS "libcurl include dir = ${libcurl_fetch_SOURCE_DIR}/include")
-
 set(LibCurl_VERSION "8.4.0-3")
 set(LibCurl_BASEURL "https://github.com/obs-ai/obs-ai-libcurl-dep/releases/download/${LibCurl_VERSION}")
 
@@ -40,6 +36,10 @@ FetchContent_Declare(
   URL ${LibCurl_URL}
   URL_HASH ${LibCurl_HASH})
 FetchContent_MakeAvailable(libcurl_fetch)
+
+message(STATUS "libcurl_fetch_SOURCE_DIR = ${libcurl_fetch_SOURCE_DIR}")
+message(STATUS "libcurl_fetch_lib_location = ${libcurl_fetch_lib_location}")
+message(STATUS "libcurl include dir = ${libcurl_fetch_SOURCE_DIR}/include")
 
 if(MSVC)
   set(libcurl_fetch_lib_location "${libcurl_fetch_SOURCE_DIR}/lib/libcurl.lib")
