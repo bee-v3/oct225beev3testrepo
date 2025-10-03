@@ -1,5 +1,15 @@
 include(FetchContent)
 
+message(STATUS "MSVC = ${MSVC}")
+message(STATUS "APPLE = ${APPLE}")
+message(STATUS "CMAKE_GENERATOR = ${CMAKE_GENERATOR}")
+message(STATUS "CMAKE_CXX_COMPILER_ID = ${CMAKE_CXX_COMPILER_ID}")
+if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+  set(IS_MSVC TRUE)
+else()
+  set(IS_MSVC FALSE)
+endif()
+
 set(LibCurl_VERSION "8.4.0-3")
 set(LibCurl_BASEURL "https://github.com/obs-ai/obs-ai-libcurl-dep/releases/download/${LibCurl_VERSION}")
 
