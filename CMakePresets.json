@@ -51,6 +51,7 @@
       "architecture": "x64",
       "warnings": {"dev": true, "deprecated": true},
       "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
         "QT_VERSION": "6",
         "CMAKE_SYSTEM_VERSION": "10.0.18363.657",
         "ENABLE_FRONTEND_API": true,
@@ -63,6 +64,7 @@
       "displayName": "Windows x64 CI build",
       "description": "Build for Windows x64 on CI",
       "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
         "CMAKE_COMPILE_WARNING_AS_ERROR": true
       }
     },
@@ -132,6 +134,7 @@
       "displayName": "macOS Universal",
       "description": "macOS build for Universal architectures",
       "configuration": "Release"
+      
     },
     {
       "name": "macos-ci",
