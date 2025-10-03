@@ -46,7 +46,7 @@ build() {
   local host_os=${${(s:-:)ZSH_ARGZERO:t:r}[2]}
   local project_root=${SCRIPT_HOME:A:h:h}
   local buildspec_file=${project_root}/buildspec.json
-
+  echo "Host OS is: $host_os"
   fpath=("${SCRIPT_HOME}/utils.zsh" ${fpath})
   autoload -Uz log_group log_info log_error log_output set_loglevel check_${host_os} setup_ccache
 
