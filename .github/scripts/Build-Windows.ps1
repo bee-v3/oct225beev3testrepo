@@ -70,7 +70,7 @@ function Build {
         }
 
         $Preset = "windows-$(if ( $Env:CI -ne $null ) { 'ci-' })${Target}"
-
+        Write-Host "Preset = $Preset"
         $CmakeArgs += @(
             '--preset', $Preset
         )
@@ -79,7 +79,6 @@ function Build {
             '--build'
             '--preset', $Preset
             '--config', $Configuration
-            '-DCMAKE_BUILD_TYPE', $Configuration
             '--parallel'
             '--', '/consoleLoggerParameters:Summary', '/noLogo'
         )
