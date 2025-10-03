@@ -1,6 +1,6 @@
 include(FetchContent)
 
-set(LibCurl_VERSION "8.4.0-3")
+set(LibCurl_VERSION "8.4.1")
 set(LibCurl_BASEURL "https://github.com/obs-ai/obs-ai-libcurl-dep/releases/download/${LibCurl_VERSION}")
 
 set(LibCurl_BUILD_TYPE "$<IF:$<OR:$<CONFIG:Release>,$<CONFIG:RelWithDebInfo>>,Release,Debug>")
