@@ -32,7 +32,7 @@ runs:
         CODESIGN_TEAM: ${{ inputs.codesignTeam }}
       run: |
         : Run macOS Build
-        chmod +x .github/scripts/build-macos
+        chmod -R +x .github/scripts/
         local -a build_args=(--config ${{ inputs.config }})
         if (( ${+RUNNER_DEBUG} )) build_args+=(--debug)
 
@@ -57,7 +57,7 @@ runs:
       working-directory: ${{ inputs.workingDirectory }}
       run: |
         : Run Ubuntu Build
-        chmod +x .github/scripts/build-linux
+        chmod -R +x .github/scripts/
         local -a build_args=(
           --target linux-${{ inputs.target }}
           --config ${{ inputs.config }}
