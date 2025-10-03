@@ -1,11 +1,5 @@
 include(FetchContent)
 
-message(STATUS "MSVC = ${MSVC}")
-message(STATUS "APPLE = ${APPLE}")
-message(STATUS "CMAKE_GENERATOR = ${CMAKE_GENERATOR}")
-message(STATUS "CMAKE_CXX_COMPILER_ID = ${CMAKE_CXX_COMPILER_ID}")
-message(STATUS "LibCurl_BUILD_TYPE = ${LibCurl_BUILD_TYPE}")
-
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
   set(IS_MSVC TRUE)
 else()
@@ -15,14 +9,10 @@ endif()
 set(LibCurl_VERSION "8.4.0-3")
 set(LibCurl_BASEURL "https://github.com/obs-ai/obs-ai-libcurl-dep/releases/download/${LibCurl_VERSION}")
 
-if(CMAKE_CONFIGURATION_TYPES)  # multi-config generator
-    foreach(cfg ${CMAKE_CONFIGURATION_TYPES})
-        if(cfg STREQUAL "Release" OR cfg STREQUAL "RelWithDebInfo")
-            set(LibCurl_BUILD_TYPE_${cfg} Release)
-        else()
-            set(LibCurl_BUILD_TYPE_${cfg} Debug)
-        endif()
-    endforeach()
+if(${CMAKE_BUILD_TYPE} STREQUAL Release OR ${CMAKE_BUILD_TYPE} STREQUAL RelWithDebInfo)
+  set(LibCurl_BUILD_TYPE Release)
+else()
+  set(LibCurl_BUILD_TYPE Debug)
 endif()
 
 message(STATUS "LibCurl_BUILD_TYPE = ${LibCurl_BUILD_TYPE}")
@@ -76,10 +66,6 @@ else()
     )
   endif()
 endif()
-
-message(STATUS "libcurl_fetch_SOURCE_DIR = ${libcurl_fetch_SOURCE_DIR}")
-message(STATUS "libcurl_fetch_lib_location = ${libcurl_fetch_lib_location}")
-message(STATUS "libcurl include dir = ${libcurl_fetch_SOURCE_DIR}/include")
 
 # Create imported target
 add_library(libcurl STATIC IMPORTED)
