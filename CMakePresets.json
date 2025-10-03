@@ -19,6 +19,7 @@
       "generator": "Xcode",
       "warnings": {"dev": true, "deprecated": true},
       "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
         "QT_VERSION": "6",
         "CMAKE_OSX_DEPLOYMENT_TARGET": "11.0",
         "CODESIGN_IDENTITY": "$penv{CODESIGN_IDENT}",
@@ -34,6 +35,7 @@
       "description": "Build for macOS 11.0+ (Universal binary) for CI",
       "generator": "Xcode",
       "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
         "CMAKE_COMPILE_WARNING_AS_ERROR": true
       }
     },

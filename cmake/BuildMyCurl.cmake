@@ -15,8 +15,6 @@ else()
   set(LibCurl_BUILD_TYPE Debug)
 endif()
 
-message(STATUS "LibCurl_BUILD_TYPE = ${LibCurl_BUILD_TYPE}")
-
 if(APPLE)
   if(LibCurl_BUILD_TYPE STREQUAL Release)
     set(LibCurl_URL "${LibCurl_BASEURL}/libcurl-macos-8.4.0-3-Release.tar.gz")

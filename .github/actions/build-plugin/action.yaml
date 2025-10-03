@@ -23,6 +23,10 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Fix script permissions
+      if: runner.os == 'macOS'
+      run: chmod +x .github/scripts/build-macos
+
     - name: Run macOS Build
       if: runner.os == 'macOS'
       shell: zsh --no-rcs --errexit --pipefail {0}
@@ -50,6 +54,10 @@ runs:
         echo "/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin" >> $GITHUB_PATH
         brew install --quiet zsh
         echo ::endgroup::
+
+    - name: Fix script permissions
+      if: runner.os == 'Linux'
+      run: chmod +x .github/scripts/build-macos
 
     - name: Run Ubuntu Build
       if: runner.os == 'Linux'
