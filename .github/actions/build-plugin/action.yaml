@@ -51,10 +51,6 @@ runs:
         brew install --quiet zsh
         echo ::endgroup::
 
-    - name: Fix script permissions
-      if: runner.os == 'Linux'
-      run: chmod +x .github/scripts/build-macos
-
     - name: Run Ubuntu Build
       if: runner.os == 'Linux'
       shell: zsh --no-rcs --errexit --pipefail {0}
