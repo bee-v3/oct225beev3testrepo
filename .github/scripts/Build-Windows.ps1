@@ -73,13 +73,13 @@ function Build {
 
         $CmakeArgs += @(
             '--preset', $Preset
-            '-DCMAKE_BUILD_TYPE', $Configuration
         )
 
         $CmakeBuildArgs += @(
             '--build'
             '--preset', $Preset
             '--config', $Configuration
+            '-DCMAKE_BUILD_TYPE', $Configuration
             '--parallel'
             '--', '/consoleLoggerParameters:Summary', '/noLogo'
         )
