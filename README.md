@@ -1,4 +1,4 @@
-# ⚠️ Stalled ⚠️ This project is not under active development
+# ⚠️ Stalled ⚠️ This project is not under active development 
 
 ## URL/API Source - Connect Anything to OBS
 
