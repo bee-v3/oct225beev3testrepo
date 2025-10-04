@@ -1,11 +1,5 @@
 include(FetchContent)
 
-if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-  set(IS_MSVC TRUE)
-else()
-  set(IS_MSVC FALSE)
-endif()
-
 set(LibCurl_VERSION "8.4.0-3")
 set(LibCurl_BASEURL "https://github.com/obs-ai/obs-ai-libcurl-dep/releases/download/${LibCurl_VERSION}")
 
@@ -46,8 +40,6 @@ FetchContent_Declare(
   URL ${LibCurl_URL}
   URL_HASH ${LibCurl_HASH})
 FetchContent_MakeAvailable(libcurl_fetch)
-
-
 
 if(MSVC)
   set(libcurl_fetch_lib_location "${libcurl_fetch_SOURCE_DIR}/lib/libcurl.lib")

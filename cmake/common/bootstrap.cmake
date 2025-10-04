@@ -62,7 +62,7 @@ include(buildnumber)
 include(osconfig)
 
 # Allow selection of common build types via UI
-if(NOT ${CMAKE_BUILD_TYPE})
+if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE
       "RelWithDebInfo"
       CACHE STRING "OBS build type [Release, RelWithDebInfo, Debug, MinSizeRel]" FORCE)

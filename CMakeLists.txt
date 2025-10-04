@@ -1,11 +1,11 @@
-cmake_minimum_required(VERSION 3.28...3.30)
+cmake_minimum_required(VERSION 3.16...3.26)
 
 include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/common/bootstrap.cmake" NO_POLICY_SCOPE)
 
 project(${_name} VERSION ${_version})
 
-option(ENABLE_FRONTEND_API "Use obs-frontend-api for UI functionality" ON)
-option(ENABLE_QT "Use Qt functionality" ON)
+option(ENABLE_FRONTEND_API "Use obs-frontend-api for UI functionality" OFF)
+option(ENABLE_QT "Use Qt functionality" OFF)
 
 include(compilerconfig)
 include(defaults)
@@ -25,29 +25,31 @@ if(ENABLE_QT)
   find_package(Qt6 COMPONENTS Widgets Core)
   target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE Qt6::Core Qt6::Widgets)
   target_compile_options(
-    ${CMAKE_PROJECT_NAME}
-    PRIVATE $<$<C_COMPILER_ID:Clang,AppleClang>:-Wno-quoted-include-in-framework-header -Wno-comma>
-  )
+    ${CMAKE_PROJECT_NAME} PRIVATE $<$<C_COMPILER_ID:Clang,AppleClang>:-Wno-quoted-include-in-framework-header
+                                  -Wno-comma>)
   set_target_properties(
     ${CMAKE_PROJECT_NAME}
-    PROPERTIES AUTOMOC ON AUTOUIC ON AUTORCC ON
-  )
+    PROPERTIES AUTOMOC ON
+               AUTOUIC ON
+               AUTORCC ON)
 endif()
 
-set(USE_SYSTEM_CURL OFF CACHE STRING "Use system cURL")
+set(USE_SYSTEM_CURL
+    OFF
+    CACHE STRING "Use system cURL")
 
-set(USE_SYSTEM_PUGIXML OFF CACHE STRING "Use system pugixml")
+set(USE_SYSTEM_PUGIXML
+    OFF
+    CACHE STRING "Use system pugixml")
 
 if(USE_SYSTEM_CURL)
-    find_package(CURL REQUIRED)
-    target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE "${CURL_LIBRARIES}")
-    target_include_directories(${CMAKE_PROJECT_NAME} SYSTEM PUBLIC "${CURL_INCLUDE_DIRS}")
+  find_package(CURL REQUIRED)
+  target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE "${CURL_LIBRARIES}")
+  target_include_directories(${CMAKE_PROJECT_NAME} SYSTEM PUBLIC "${CURL_INCLUDE_DIRS}")
 else()
-    include(cmake/BuildMyCurl.cmake)
-    target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE libcurl)
+  include(cmake/BuildMyCurl.cmake)
+  target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE libcurl)
 endif()
-
-set(USE_SYSTEM_PUGIXML OFF CACHE STRING "Use system pugixml")
 
 if(USE_SYSTEM_PUGIXML)
   find_package(pugixml REQUIRED)

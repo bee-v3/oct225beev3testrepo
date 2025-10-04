@@ -93,7 +93,6 @@ void setTextCallback(const std::string &str, const output_mapping &mapping)
 					},
 					&data
 				);
-
 				return !found; // continue enumerating scenes if not found
 			},
 			target

@@ -35,7 +35,7 @@ else()
 
   # Enable stripping of dead symbols when not building for Debug configuration
   set(_release_configs RelWithDebInfo Release MinSizeRel)
-  if(${CMAKE_BUILD_TYPE} IN_LIST _release_configs)
+  if(CMAKE_BUILD_TYPE IN_LIST _release_configs)
     add_link_options(LINKER:-dead_strip)
   endif()
 

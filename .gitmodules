@@ -3,4 +3,4 @@
 	url = https://github.com/danielaparker/jsoncons.git
 [submodule "vendor/inja"]
 	path = vendor/inja
-	url = https://github.com/pantor/inja.git
+	url = https://github.com/pantor/inja
