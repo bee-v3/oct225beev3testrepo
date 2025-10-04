@@ -73,6 +73,7 @@ function Build {
 
         $CmakeArgs += @(
             '--preset', $Preset
+            "-DCMAKE_BUILD_TYPE=${Configuration}"
         )
 
         $CmakeBuildArgs += @(
