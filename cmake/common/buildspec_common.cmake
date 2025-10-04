@@ -53,7 +53,6 @@ function(_check_deps_version version)
       endif()
     endif()
   endforeach()
-return(PROPAGATE found CMAKE_PREFIX_PATH)
 endfunction()
 
 # _setup_obs_studio: Create obs-studio build project, then build libobs and obs-frontend-api
@@ -79,7 +78,7 @@ function(_setup_obs_studio)
     COMMAND
       "${CMAKE_COMMAND}" -S "${dependencies_dir}/${_obs_destination}" -B
       "${dependencies_dir}/${_obs_destination}/build_${arch}" -G ${_cmake_generator} "${_cmake_arch}"
-      -DOBS_CMAKE_VERSION:STRING=${_cmake_version} -DENABLE_PLUGINS:BOOL=OFF -DENABLE_UI:BOOL=OFF
+      -DOBS_CMAKE_VERSION:STRING=${_cmake_version} -DENABLE_PLUGINS:BOOL=OFF -DENABLE_FRONTEND:BOOL=OFF
       -DOBS_VERSION_OVERRIDE:STRING=${_obs_version} "-DCMAKE_PREFIX_PATH='${CMAKE_PREFIX_PATH}'" ${_is_fresh}
       ${_cmake_extra}
     RESULT_VARIABLE _process_result COMMAND_ERROR_IS_FATAL ANY
@@ -101,7 +100,7 @@ function(_setup_obs_studio)
     set(_cmake_extra "")
   endif()
   execute_process(
-    COMMAND "${CMAKE_COMMAND}" --install build_${arch} --component Development --config Debug --prefix
+    COMMAND "${CMAKE_COMMAND}" --install build_${arch} --component Development --config Debug --prefix "${dependencies_dir} --prefix
             "${dependencies_dir}" ${_cmake_extra}
     WORKING_DIRECTORY "${dependencies_dir}/${_obs_destination}"
     RESULT_VARIABLE _process_result COMMAND_ERROR_IS_FATAL ANY
@@ -145,6 +144,14 @@ function(_check_dependencies)
       string(REPLACE "-REVISION" "" file "${file}")
     endif()
 
+    if(EXISTS "${dependencies_dir}/.dependency_${dependency}_${arch}.sha256")
+      file(
+        READ
+        "${dependencies_dir}/.dependency_${dependency}_${arch}.sha256"
+        OBS_DEPENDENCY_${dependency}_${arch}_HASH
+      )
+    endif()
+
     set(skip FALSE)
     if(dependency STREQUAL prebuilt OR dependency STREQUAL qt6)
       _check_deps_version(${version})
@@ -183,6 +190,10 @@ function(_check_dependencies)
       endif()
     endif()
 
+    if(NOT OBS_DEPENDENCY_${dependency}_${arch}_HASH STREQUAL ${hash})
+      file(REMOVE_RECURSE "${dependencies_dir}/${destination}")
+    endif()
+
     if(NOT EXISTS "${dependencies_dir}/${destination}")
       file(MAKE_DIRECTORY "${dependencies_dir}/${destination}")
       if(dependency STREQUAL obs-studio)
@@ -191,6 +202,8 @@ function(_check_dependencies)
         file(ARCHIVE_EXTRACT INPUT "${dependencies_dir}/${file}" DESTINATION "${dependencies_dir}/${destination}")
       endif()
     endif()
+
+    file(WRITE "${dependencies_dir}/.dependency_${dependency}_${arch}.sha256" "${hash}")
 
     if(dependency STREQUAL prebuilt)
       list(APPEND CMAKE_PREFIX_PATH "${dependencies_dir}/${destination}")
