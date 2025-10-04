@@ -80,7 +80,6 @@
       "warnings": {"dev": true, "deprecated": true},
       "cacheVariables": {
         "QT_VERSION": "6",
-        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
         "ENABLE_FRONTEND_API": true,
         "ENABLE_QT": true
       }
@@ -91,7 +90,6 @@
       "displayName": "Linux x86_64 CI build",
       "description": "Build for Linux x86_64 on CI",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
         "CMAKE_COMPILE_WARNING_AS_ERROR": true
       }
     },
@@ -109,7 +107,6 @@
       "warnings": {"dev": true, "deprecated": true},
       "cacheVariables": {
         "QT_VERSION": "6",
-        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
         "ENABLE_FRONTEND_API": true,
         "ENABLE_QT": true
       }
@@ -120,7 +117,6 @@
       "displayName": "Linux aarch64 CI build",
       "description": "Build for Linux aarch64 on CI",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
         "CMAKE_COMPILE_WARNING_AS_ERROR": true
       }
     }
