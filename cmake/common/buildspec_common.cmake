@@ -100,7 +100,7 @@ function(_setup_obs_studio)
     set(_cmake_extra "")
   endif()
   execute_process(
-    COMMAND "${CMAKE_COMMAND}" --install build_${arch} --component Development --config Debug --prefix "${dependencies_dir} --prefix
+    COMMAND "${CMAKE_COMMAND}" --install build_${arch} --component Development --config Debug --prefix 
             "${dependencies_dir}" ${_cmake_extra}
     WORKING_DIRECTORY "${dependencies_dir}/${_obs_destination}"
     RESULT_VARIABLE _process_result COMMAND_ERROR_IS_FATAL ANY
@@ -110,9 +110,7 @@ endfunction()
 
 # _check_dependencies: Fetch and extract pre-built OBS build dependencies
 function(_check_dependencies)
-  if(NOT buildspec)
     file(READ "${CMAKE_CURRENT_SOURCE_DIR}/buildspec.json" buildspec)
-  endif()
 
   # cmake-format: off
   string(JSON dependency_data GET ${buildspec} dependencies)
@@ -154,10 +152,12 @@ function(_check_dependencies)
 
     set(skip FALSE)
     if(dependency STREQUAL prebuilt OR dependency STREQUAL qt6)
-      _check_deps_version(${version})
+      if(OBS_DEPENDENCY_${dependency}_${arch}_HASH STREQUAL ${hash})
+        _check_deps_version(${version})
 
-      if(found)
-        set(skip TRUE)
+        if(found)
+          set(skip TRUE)
+        endif()
       endif()
     endif()
 
