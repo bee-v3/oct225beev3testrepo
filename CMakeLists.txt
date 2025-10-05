@@ -4,8 +4,8 @@ include("${CMAKE_CURRENT_SOURCE_DIR}/cmake/common/bootstrap.cmake" NO_POLICY_SCO
 
 project(${_name} VERSION ${_version})
 
-option(ENABLE_FRONTEND_API "Use obs-frontend-api for UI functionality" OFF)
-option(ENABLE_QT "Use Qt functionality" OFF)
+option(ENABLE_FRONTEND_API "Use obs-frontend-api for UI functionality" ON)
+option(ENABLE_QT "Use Qt functionality" ON)
 
 include(compilerconfig)
 include(defaults)
@@ -42,14 +42,18 @@ set(USE_SYSTEM_PUGIXML
     OFF
     CACHE STRING "Use system pugixml")
 
-if(USE_SYSTEM_CURL)
-  find_package(CURL REQUIRED)
-  target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE "${CURL_LIBRARIES}")
-  target_include_directories(${CMAKE_PROJECT_NAME} SYSTEM PUBLIC "${CURL_INCLUDE_DIRS}")
-else()
-  include(cmake/BuildMyCurl.cmake)
-  target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE libcurl)
-endif()
+    if(USE_SYSTEM_CURL)
+    find_package(CURL REQUIRED)
+    target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE "${CURL_LIBRARIES}")
+    target_include_directories(${CMAKE_PROJECT_NAME} SYSTEM PUBLIC "${CURL_INCLUDE_DIRS}")
+  else()
+    include(cmake/BuildMyCurl.cmake)
+    target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE libcurl)
+  endif()
+
+set(USE_SYSTEM_PUGIXML
+    OFF
+    CACHE STRING "Use system pugixml")
 
 if(USE_SYSTEM_PUGIXML)
   find_package(pugixml REQUIRED)
