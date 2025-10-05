@@ -74,6 +74,7 @@ function Build {
         $CmakeArgs += @(
             '--preset', $Preset
             "-DCMAKE_BUILD_TYPE=${Configuration}"
+            "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
         )
 
         $CmakeBuildArgs += @(
